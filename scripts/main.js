@@ -2,6 +2,14 @@
  * Global Variables
  */
 
+//Setting the cells to a node list
+const cells = document.querySelectorAll('.cell');
+
+//Adding event listener
+cells.forEach(cell => {
+    cell.addEventListener('click', clickedCell, false);
+}); //end event listener
+
 /**
  * Timer Functionality
  */
@@ -18,6 +26,8 @@ let gameBoard = [
     ['','',''],
     ['','','']
 ]
+
+
 //Check to see if there is a winner or a tied game
 function checkGameState(){
     for (var i = 0; i < gameBoard.length; i++ ) {
@@ -40,8 +50,21 @@ function checkGameState(){
 }
 
 //1. Check to see if the game is one or two player (using the radio buttons in the HTML)
-function determineNumOfPlayers() {
+function determineNumOfPlayers(isSinglePlayer) {
+    let playerSymbols = ['X','O'];
+    let assignSymbol = Math.random(0,2);
+    let numberOfPlayers = 1;
+    let playerOneSymbol;
+    let playerTwoSymbol;
+    
 
+    if (isSinglePlayer === true) {
+         playerTwoSymbol = playerSymbols[0];
+         playerOneSymbol = playerSymbols[1];
+    } else {
+        playerOneSymbol = playerSymbols[assignSymbol];
+        playerTwoSymbol = playerSymbols[assignSymbol];
+    }
 }
 
 function gameplayLogic(){
