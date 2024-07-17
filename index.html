@@ -1,56 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tic-Tac-Toe</title>
-    <link rel="stylesheet" href="styles/main.css">
-    
-</head>
-<body>
+    <link rel="stylesheet" href="styles/main.css" />
+  </head>
+  <body>
+    <div id="timer-container">
+      <span id="timer-span"></span>
+    </div>
     <main>
-        
-        <table>
-            <tr>
-                <td class="cell" cell-index="0"></td>
-                <td class="cell vert" cell-index="1"></td>
-                <td class="cell" cell-index="2"></td>
-            </tr>
-            <tr>
-                <td class="cell hori"  cell-index="3"></td>
-                <td class="cell vert hori" cell-index="4"></td>
-                <td class="cell hori" cell-index="5"></td>
-            </tr>            
-            <tr>
-                <td class="cell" cell-index="6"></td>
-                <td class="cell vert" cell-index="7"></td>
-                <td class="cell" cell-index="8"></td>
-            </tr>
-        </table>
+      <table>
+        <tr>
+          <td class="cell" cell-index="0"></td>
+          <td class="cell vert" cell-index="1"></td>
+          <td class="cell" cell-index="2"></td>
+        </tr>
+        <tr>
+          <td class="cell hori" cell-index="3"></td>
+          <td class="cell vert hori" cell-index="4"></td>
+          <td class="cell hori" cell-index="5"></td>
+        </tr>
+        <tr>
+          <td class="cell" cell-index="6"></td>
+          <td class="cell vert" cell-index="7"></td>
+          <td class="cell" cell-index="8"></td>
+        </tr>
+      </table>
     </main>
 
-    <h2 id="display_turn" class="display_turn">Hello World</h2>
+    <h2 id="display_turn" class="display_turn"></h2>
     <div class="button_container">
-        <!--Radio button to select one or two player game-->
-        <p>How many players?</p>
-        <form class="player_form" id="number_of_players" action="scripts/main.js">
-        <input type="radio" name="single_player" id="single_player">
+      <!--Radio button to select one or two player game-->
+      <p>How many players?</p>
+      <form class="player_form" id="number_of_players" action="scripts/main.js">
+        <input type="radio" name="players" id="single_player" />
         <label for="single_player">Single Player </label>
-        <input type="radio" name="two_player" id="two_player">
+        <input type="radio" name="players" id="two_player" />
         <label for="two_player">Two Player</label>
-        </form>
-        <!--Button to start/restart the game-->
-        <button class="pretty_button" value="Start Game" id="startBtn">Start Game</button>
-        <!--Button to start and reset the timer-->
-        <button class="pretty_button"id="timerBtn">Start Timer</button>
+      </form>
+      <!--Button to start/restart the game-->
+      <button class="pretty_button" value="Start Game" id="startBtn">
+        Start Game
+      </button>
+      <!--Button to start and reset the timer-->
+      <button class="pretty_button" id="timerBtn">Start Timer</button>
     </div>
-        
-        
-        
-        
-
-
-    
-</body>
-<script src="scripts/main.js"></script>
+  </body>
+  <script src="scripts/main.js"></script>
 </html>
