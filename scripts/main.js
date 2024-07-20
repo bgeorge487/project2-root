@@ -59,10 +59,10 @@ function computerLogic() {
         currentPlayer = playerOne;
     } //end switch case
   }
-
+  const cellIndex = this.getAttribute("cell-index");
   randomIndex = Math.random(0, gameBoard.length + 1);
-  if (currentPlayer == computerPlayer && gameBoard[randomIndex] == "") {
-    updateCell(this, randomIndex);
+  if (currentPlayer == computerPlayer && gameBoard[cellIndex] == gameBoard[randomIndex] && gameBoard[randomIndex] == "") {
+    cellClicked();
     checkWinner();
   }
 } //end computerLogic
