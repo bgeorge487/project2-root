@@ -18,7 +18,7 @@ const winConditions = [
   [2, 4, 6],
 ]; //end winConditions
 let gameBoard = ["", "", "", "", "", "", "", "", ""];
-let computerPlayer = "X";
+let computerPlayer = "O";
 let selection = 0;
 let currentPlayer = "";
 let playerOne = "X";
@@ -28,22 +28,44 @@ let gameRunning = false;
 //Timer variables
 let timer = null;
 let timerStarted = false;
-let timerSpan = document.querySelector('#timer-span'); //the span holding the timer button and span
-let timerButton = document.querySelector('#timerBtn'); //the button that starts/stops the timer
+let timerSpan = document.querySelector("#timer-span"); //the span holding the timer button and span
+let timerButton = document.querySelector("#timerBtn"); //the button that starts/stops the timer
 let secondsCount = 0;
 
 initializeGame();
 
 function initializeGame() {
-    cells.forEach((cell) => cell.addEventListener("click", cellClicked));
-    timerButton.addEventListener('click', handleTimerButton);    
-    statusText.textContent = `${computerPlayer}'s turn`;
-    gameRunning = true;
-  }
+  cells.forEach((cell) => cell.addEventListener("click", cellClicked));
+  timerButton.addEventListener("click", handleTimerButton);
+  statusText.textContent = `${computerPlayer}'s turn`;
+  gameRunning = true;
+} //end initializeGame
 
 function numberOfPlayers() {
-    
-}
+  if (document.getElementById("single_player").checked) {
+    computerLogic;
+  } else if (document.getElementById("two_player").checked) {
+    initializeGame;
+  }
+} //end numberOfPlayers
+
+function computerLogic() {
+  if (!gameRunning) {
+    switch (Math.random(0, 2)) {
+      case 0:
+        currentPlayer = computerPlayer;
+        break;
+      case 1:
+        currentPlayer = playerOne;
+    } //end switch case
+  }
+
+  randomIndex = Math.random(0, gameBoard.length + 1);
+  if (currentPlayer == computerPlayer && gameBoard[randomIndex] == "") {
+    updateCell(this, randomIndex);
+    checkWinner();
+  }
+} //end computerLogic
 
 function assignTurns() {
   switch (Math.random(0, 2)) {
@@ -54,7 +76,7 @@ function assignTurns() {
       currentPlayer = playerTwo;
       break;
   }
-}
+} //end assignTurns
 
 function cellClicked() {
   const cellIndex = this.getAttribute("cell-index");
@@ -65,17 +87,17 @@ function cellClicked() {
 
   updateCell(this, cellIndex);
   checkWinner();
-}
+} //end cellClicked
 
 function updateCell(cell, index) {
   gameBoard[index] = currentPlayer;
   cell.textContent = currentPlayer;
-}
+} //end updateCell
 
 function changePlayer() {
   currentPlayer = currentPlayer == playerTwo ? playerOne : playerTwo;
   statusText.textContent = `${currentPlayer}'s turn`;
-}
+} //end changePlayer
 
 function checkWinner() {
   let roundWon = false;
@@ -110,12 +132,11 @@ function restartGame() {
   statusText.textContent = "Start the game to play!";
   cells.forEach((cell) => (cell.textContent = ""));
   gameRunning = true;
-}
+} //end restartGame
 
 /**
  * Timer Functionality
  */
-
 
 function startTimer() {
   timer = setInterval(handleTimer, 1000);
@@ -137,9 +158,5 @@ function handleTimer() {
 } //end handleTimer
 
 function handleTimerButton() {
-    (timerStarted) ? stopTimer() : startTimer();
-}
-
-
-
-  
+  timerStarted ? stopTimer() : startTimer();
+} //end handleTimerButton
