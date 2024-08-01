@@ -36,11 +36,33 @@ initializeGame();
 
 function initializeGame() {
   cells.forEach((cell) => cell.addEventListener("click", cellClicked));
+  startBtn.addEventListener("click", gameStartHandler);
   timerButton.addEventListener("click", handleTimerButton);
   statusText.textContent = `${computerPlayer}'s turn`;
   gameRunning = true;
 } //end initializeGame
 
+function gameStartHandler() {
+  if (!gameRunning) {
+    gameRunning = true;
+    
+  } else {
+    restartGame();
+  }
+} //end gameStartHandler
+
+function numberOfPlayers() {
+  if (document.getElementById("single_player").checked) {
+    gameMode = "singlePlayer";
+    computerPlayer = "O";
+    currentPlayer = Math.random() < 0.5 ? computerPlayer : playerOne;
+  } else if (document.getElementById("two_player").checked) {
+    gameMode = "multiplayer";
+    currentPlayer = Math.random() < 0.5 ? playerOne : playerTwo;
+  }
+  initializeGame();
+}
+/*
 function numberOfPlayers() {
   if (document.getElementById("single_player").checked) {
     computerLogic;
@@ -48,7 +70,23 @@ function numberOfPlayers() {
     initializeGame;
   }
 } //end numberOfPlayers
+*/
+function computerLogic() {
+  if (gameMode !== "singlePlayer" || !gameRunning) return;
 
+  let emptyCells = gameBoard.reduce((acc, cell, index) => {
+    if (cell === "") acc.push(index);
+    return acc;
+  }, []);
+
+  if (emptyCells.length > 0) {
+    const randomIndex = Math.floor(Math.random() * emptyCells.length);
+    const cellIndex = emptyCells[randomIndex];
+    updateCell(cells[cellIndex], cellIndex);
+    checkWinner();
+  }
+}
+/*
 function computerLogic() {
   if (!gameRunning) {
     switch (Math.random(0, 2)) {
@@ -66,7 +104,7 @@ function computerLogic() {
     checkWinner();
   }
 } //end computerLogic
-
+*/
 function assignTurns() {
   switch (Math.random(0, 2)) {
     case 0:
@@ -122,6 +160,8 @@ function checkWinner() {
     gameRunning = false;
   } else if (!gameBoard.includes("")) {
     statusText.textContent = "Draw!";
+    startBtn.innerHTML = "Restart Game?";
+    gameRunning = false;
   } else {
     changePlayer();
   }
