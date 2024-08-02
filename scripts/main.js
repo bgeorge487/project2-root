@@ -24,6 +24,7 @@ let currentPlayer = "";
 let playerOne = "X";
 let playerTwo = "O";
 let gameRunning = false;
+let gameMode = "";
 
 //Timer variables
 let timer = null;
@@ -43,12 +44,17 @@ function initializeGame() {
 } //end initializeGame
 
 function gameStartHandler() {
-  if (!gameRunning) {
-    gameRunning = true;
-    
-  } else {
-    restartGame();
+  if (gameRunning) {gameRunning = true;}
+
+  let mode = numberOfPlayers();
+  if(mode == 'singlePlayer' && gameRunning == true) {
+    computerLogic();
+  } else if (mode == 'multiplayer' && gameRunning == true) {
+    assignTurns();
+    checkWinner();
   }
+
+
 } //end gameStartHandler
 
 function numberOfPlayers() {
@@ -56,11 +62,13 @@ function numberOfPlayers() {
     gameMode = "singlePlayer";
     computerPlayer = "O";
     currentPlayer = Math.random() < 0.5 ? computerPlayer : playerOne;
+    changePlayer();
+    checkWinner();
   } else if (document.getElementById("two_player").checked) {
     gameMode = "multiplayer";
     currentPlayer = Math.random() < 0.5 ? playerOne : playerTwo;
   }
-  initializeGame();
+  return gameMode;
 }
 /*
 function numberOfPlayers() {
@@ -158,10 +166,12 @@ function checkWinner() {
     statusText.textContent = `${currentPlayer} won!`;
     startBtn.innerHTML = "Restart Game?";
     gameRunning = false;
+    startBtn.addEventListener("click", restartGame);
   } else if (!gameBoard.includes("")) {
     statusText.textContent = "Draw!";
     startBtn.innerHTML = "Restart Game?";
     gameRunning = false;
+    startBtn.addEventListener("click", restartGame);
   } else {
     changePlayer();
   }
